@@ -40,6 +40,7 @@ Please refer to [INSTALL.md](INSTALL.md) for general instructions on environment
 * [Inference with diffusion-based Text2World models](/examples/inference_diffusion_text2world.md) **[with multi-GPU support]**
 * [Inference with diffusion-based Video2World models](/examples/inference_diffusion_video2world.md) **[with multi-GPU support]**
 * [Inference with diffusion-based WorldInterpolator models](/examples/inference_diffusion_WorldInterpolator.md) **[with multi-GPU support]**
+* [Inference with diffusion-based Single2MultiView AV models](/examples/inference_diffusion_single2multiview.md) **[with multi-GPU support]**
 * [Inference with autoregressive-based base models](/examples/inference_autoregressive_base.md) **[with multi-GPU support]**
 * [Inference with autoregressive-based Video2World models](/examples/inference_autoregressive_video2world.md) **[with multi-GPU support]**
 * [Inference with tokenizer models](/examples/inference_tokenizer.md)
@@ -51,6 +52,7 @@ Please refer to [INSTALL.md](INSTALL.md) for general instructions on environment
 * [Post-train diffusion-based WorldInterpolator models using custom datasets](/examples/post-training_diffusion_interpolator.md) **[with multi-node support]**
 * [Post-train diffusion-based Text2World models using custom multi-view datasets](/examples/post-training_diffusion_text2world_multiview.md) **[with multi-node support]**
 * [Post-train diffusion-based Video2World models using custom multi-view datasets)](/examples/post-training_diffusion_video2world_multiview.md) **[with multi-node support]**
+* [Post-train diffusion-based Single2MultiView models using custom multi-view datasets](/examples/post-training_diffusion_single2multiview.md) **[with multi-node support]**
 * [Post-train autoregressive-based base models using custom datasets](/examples/post-training_autoregressive_base.md) **[with multi-node support]**
 * [Post-train tokenizers using custom datasets](/examples/post-training_tokenizer.md) **[with multi-node support]**
 
