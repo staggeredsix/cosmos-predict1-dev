@@ -18,6 +18,12 @@ Cosmos-Predict1 includes the following:
 - **Image and video tokenizers** for tokenizing videos into continuous tokens (latent vectors) and discrete tokens (integers) efficiently and effectively.
 - **Post-training scripts** for helping Physical AI builders post-train pre-trained Cosmos-Predict1 for their applications.
 
+## News
+- **[2025/05]** **Cosmos AV Single2MultiView** is available! Now you can create dynamic, multi-view clips from just one video. Try it out and tell us what you think!  
+    - [Inference guide](examples/inference_diffusion_single2multiview.md)  
+    - [PyTorch post-training](examples/post-training_diffusion_single2multiview.md)  
+    - [Hugging Face model](https://huggingface.co/nvidia/Cosmos-Predict1-7B-SingleToMultiView-Sample-AV)  
+
 ## Example Model Behavior
 
  [Cosmos-Predict Text2World](https://github.com/nvidia-cosmos/cosmos-predict1)
