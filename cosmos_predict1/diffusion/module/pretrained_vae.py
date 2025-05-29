@@ -195,7 +195,13 @@ class JITVAE(BasePretrainedImageVAE):
         """
         Load the encoder from the remote store.
         """
-        self.encoder = torch.jit.load(os.path.join(vae_dir, "encoder.jit"))
+        # Using `weights_only=False` below due to changes from PyTorch 2.6+. The below is the
+        # message included in the `RuntimeError` when trying to use `weights_only=True`:
+        # In PyTorch 2.6, we changed the default value of the `weights_only` argument in
+        # `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to
+        # `False` will likely succeed, but it can result in arbitrary code execution. Do it only if
+        # you got the file from a trusted source.
+        self.encoder = torch.load(os.path.join(vae_dir, "encoder.jit"), weights_only=False)
 
         self.encoder.eval()
         for param in self.encoder.parameters():
@@ -206,7 +212,7 @@ class JITVAE(BasePretrainedImageVAE):
         """
         Load the decoder from the remote store.
         """
-        self.decoder = torch.jit.load(os.path.join(vae_dir, "decoder.jit"))
+        self.decoder = torch.load(os.path.join(vae_dir, "decoder.jit"), weights_only=False)
 
         self.decoder.eval()
         for param in self.decoder.parameters():
