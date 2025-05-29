@@ -88,6 +88,7 @@ MODEL_NAME_DICT = {
     # video2world lora
     "Cosmos-Predict1-7B-Video2World_post-trained-lora": "Cosmos_Predict1_Video2World_7B_Post_trained_lora",
     "Cosmos-Predict1-7B-Text2World-Sample-AV-Multiview": "Cosmos_Predict1_Text2World_7B_Multiview",
+    "Cosmos-Predict1-7B-Text2World-Sample-AV-Multiview_Waymo": "Cosmos_Predict1_Text2World_7B_Multiview_Waymo",
     "Cosmos-Predict1-7B-Video2World-Sample-AV-Multiview": "Cosmos_Predict1_Video2World_7B_Multiview",
     "Cosmos-Predict1-7B-WorldInterpolator": "Cosmos_Predict1_WorldInterpolator_7B",
     # single2multiview
@@ -1009,9 +1010,19 @@ class DiffusionText2WorldMultiviewGenerationPipeline(DiffusionText2WorldGenerati
         # Decode video
         video = (1.0 + self.model.decode(sample)).clamp(0, 2) / 2  # [B, 3, T, H, W]
         video_segments = einops.rearrange(video, "b c (v t) h w -> b c v t h w", v=self.n_views)
-        grid_video = torch.stack(
-            [video_segments[:, :, i] for i in [1, 0, 2, 4, 3, 5]],
-            dim=2,
+	# Fill one blank view for Waymo
+        if self.model_name == "Cosmos_Predict1_Text2World_7B_Multiview_Waymo":
+            ones_tensor = torch.zeros_like(video_segments[:, :, 0,],).unsqueeze(2)
+            video_segments = torch.cat((video_segments, ones_tensor), dim=2)
+            grid_video = torch.stack(
+                [video_segments[:, :, i] for i in [1, 0, 2, 3, 5, 4]],
+                dim=2,
+            )
+        else:
+            grid_video = torch.stack(
+                [video_segments[:, :, i] for i in [1, 0, 2, 4, 3, 5]],
+                dim=2,
+            )
         )
         grid_video = einops.rearrange(grid_video, "b c (h w) t h1 w1 -> b c t (h h1) (w w1)", h=2, w=3)
         grid_video = (grid_video[0].permute(1, 2, 3, 0) * 255).to(torch.uint8).cpu().numpy()
@@ -1081,14 +1092,23 @@ class DiffusionText2WorldMultiviewGenerationPipeline(DiffusionText2WorldGenerati
         """
         log.info(f"Run with prompt: {prompt}")
 
-        prompts = [
-            prompt["prompt"],
-            prompt["prompt_left"],
-            prompt["prompt_right"],
-            prompt["prompt_back"],
-            prompt["prompt_back_left"],
-            prompt["prompt_back_right"],
-        ]
+        if self.model_name == "Cosmos_Predict1_Text2World_7B_Multiview_Waymo":
+            prompts = [
+                prompt["prompt"],
+                prompt["prompt_left"],
+                prompt["prompt_right"],
+                prompt["prompt_back_left"],
+                prompt["prompt_back_right"],
+            ]
+        else:
+            prompts = [
+                prompt["prompt"],
+                prompt["prompt_left"],
+                prompt["prompt_right"],
+                prompt["prompt_back"],
+                prompt["prompt_back_left"],
+                prompt["prompt_back_right"],
+            ]
         prompt_embeddings, _ = self._run_text_embedding_on_prompt_with_offload(prompts)
         log.info("Finish text embedding on prompt")
 

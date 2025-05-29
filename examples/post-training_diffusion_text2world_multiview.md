@@ -174,13 +174,13 @@ The inference can be done with the same interface as described in [examples/infe
 
 #### 1. Copying checkpoint to Designated Location
 
-The post-trained checkpoint needs to be copied to `checkpoints/Cosmos-Predict1-7B-Text2World-Sample-AV-Multiview_post-trained/model.pt`
+The post-trained checkpoint needs to be copied to `checkpoints/Cosmos-Predict1-7B-Text2World-Sample-AV-Multiview_Waymo/model.pt`
 
 For example, if a post-trained checkpoint (ema) with 1000 iterations is to be used,
 ```bash
 # copy checkpoint to the designated location
-mkdir checkpoints/Cosmos-Predict1-7B-Text2World-Sample-AV-Multiview_post-trained/
-cp checkpoints/posttraining/diffusion_text2world/text2world_multiview_7b_example_waymo/checkpoints/iter_000001000_ema_model.pt checkpoints/Cosmos-Predict1-7B-Text2World-Sample-AV-Multiview_post-trained/model.pt
+mkdir checkpoints/Cosmos-Predict1-7B-Text2World-Sample-AV-Multiview_Waymo/
+cp checkpoints/posttraining/diffusion_text2world/text2world_multiview_7b_example_waymo/checkpoints/iter_000001000_ema_model.pt checkpoints/Cosmos-Predict1-7B-Text2World-Sample-AV-Multiview_Waymo/model.pt
 ```
 #### 2. Running the Inference
 
@@ -225,11 +225,11 @@ PROMPT_BACK_RIGHT="The video is captured from a camera mounted on a car. The cam
 # Run the video generation command with a single gpu
 CUDA_HOME=$CONDA_PREFIX PYTHONPATH=$(pwd) python cosmos_predict1/diffusion/inference/text2world_multiview.py \
     --checkpoint_dir checkpoints \
-    --diffusion_transformer_dir Cosmos-Predict1-7B-Text2World-Sample-AV-Multiview_post-trained \
+    --diffusion_transformer_dir Cosmos-Predict1-7B-Text2World-Sample-AV-Multiview_Waymo \
+    --n_views 5 \
     --prompt "${PROMPT}" \
     --prompt_left "${PROMPT_LEFT}" \
     --prompt_right "${PROMPT_RIGHT}" \
-    --prompt_back "${PROMPT_BACK}" \
     --prompt_back_left "${PROMPT_BACK_LEFT}" \
     --prompt_back_right "${PROMPT_BACK_RIGHT}" \
     --video_save_name diffusion-text2world-multiview-7b-post-train
