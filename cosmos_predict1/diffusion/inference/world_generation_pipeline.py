@@ -90,6 +90,7 @@ MODEL_NAME_DICT = {
     "Cosmos-Predict1-7B-Text2World-Sample-AV-Multiview": "Cosmos_Predict1_Text2World_7B_Multiview",
     "Cosmos-Predict1-7B-Text2World-Sample-AV-Multiview_post-trained": "Cosmos_Predict1_Text2World_7B_Multiview_post-trained",
     "Cosmos-Predict1-7B-Video2World-Sample-AV-Multiview": "Cosmos_Predict1_Video2World_7B_Multiview",
+    "Cosmos-Predict1-7B-Video2World-Sample-AV-Multiview_post-trained": "Cosmos_Predict1_Video2World_7B_Multiview_post-trained",
     "Cosmos-Predict1-7B-WorldInterpolator": "Cosmos_Predict1_WorldInterpolator_7B",
     # single2multiview
     "Cosmos-Predict1-7B-SingleToMultiView-Sample-AV/t2w_model.pt": "Cosmos_Predict1_Video2World_7B_ViewExtend_Multiview",
@@ -1325,14 +1326,23 @@ class DiffusionVideo2WorldMultiviewGenerationPipeline(DiffusionText2WorldMultivi
         """
         log.info(f"Run with prompt: {prompt}")
 
-        prompts = [
-            prompt["prompt"],
-            prompt["prompt_left"],
-            prompt["prompt_right"],
-            prompt["prompt_back"],
-            prompt["prompt_back_left"],
-            prompt["prompt_back_right"],
-        ]
+        if self.n_views == 5:
+            prompts = [
+                prompt["prompt"],
+                prompt["prompt_left"],
+                prompt["prompt_right"],
+                prompt["prompt_back_left"],
+                prompt["prompt_back_right"],
+            ]
+        else:
+            prompts = [
+                prompt["prompt"],
+                prompt["prompt_left"],
+                prompt["prompt_right"],
+                prompt["prompt_back"],
+                prompt["prompt_back_left"],
+                prompt["prompt_back_right"],
+            ]
         prompt_embeddings, _ = self._run_text_embedding_on_prompt_with_offload(prompts)
         log.info("Finish text embedding on prompt")
 
@@ -1920,14 +1930,23 @@ class DiffusionViewExtendMultiviewGenerationPipeline(DiffusionVideo2WorldMultivi
         """
         log.info(f"Run with prompt: {prompt}")
 
-        prompts = [
-            prompt["prompt"],
-            prompt["prompt_left"],
-            prompt["prompt_right"],
-            prompt["prompt_back"],
-            prompt["prompt_back_left"],
-            prompt["prompt_back_right"],
-        ]
+        if self.n_views == 5:
+            prompts = [
+                prompt["prompt"],
+                prompt["prompt_left"],
+                prompt["prompt_right"],
+                prompt["prompt_back_left"],
+                prompt["prompt_back_right"],
+            ]
+        else:
+            prompts = [
+                prompt["prompt"],
+                prompt["prompt_left"],
+                prompt["prompt_right"],
+                prompt["prompt_back"],
+                prompt["prompt_back_left"],
+                prompt["prompt_back_right"],
+            ]
         prompt_embeddings, _ = self._run_text_embedding_on_prompt_with_offload(prompts)
         log.info("Finish text embedding on prompt")
 

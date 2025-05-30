@@ -44,7 +44,7 @@ def parse_arguments() -> argparse.Namespace:
     remove_argument(parser, "num_video_frames")
     parser.add_argument("--height", type=int, default=480, help="Height of video to sample")
     parser.add_argument("--width", type=int, default=848, help="Width of video to sample")
-
+    parser.add_argument("--n_views", type=int, default=6, help="Number of camera view")
     parser.add_argument(
         "--num_video_frames",
         type=int,
@@ -166,6 +166,7 @@ def demo(args):
         frame_repeat_negative_condition=args.frame_repeat_negative_condition,
         seed=args.seed,
         num_input_frames=args.num_input_frames,
+        n_views=args.n_views,
     )
 
     # Handle multiple prompts if prompt file is provided
