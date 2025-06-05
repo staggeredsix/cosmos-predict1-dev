@@ -6,14 +6,14 @@ We support the following Cosmos SingleToMultiView-Sample-AV models for post-trai
 
 | Model Name                                               | Model Status   | Compute Requirements for Post-Training   |
 |----------------------------------------------------------|----------------|------------------------------------------|
-| Cosmos-Predict1-7B-Video2World-Sample-AV-SingleToMultiView/t2w_model | **Supported**  | 8 NVIDIA GPUs*                           |
-| Cosmos-Predict1-7B-Video2World-Sample-AV-SingleToMultiView/v2w_model | **Supported**  | 8 NVIDIA GPUs*                           |
+| Cosmos-Predict1-7B-Video2World-Sample-AV-Single2MultiView/t2w_model | **Supported**  | 8 NVIDIA GPUs*                           |
+| Cosmos-Predict1-7B-Video2World-Sample-AV-Single2MultiView/v2w_model | **Supported**  | 8 NVIDIA GPUs*                           |
 
 **\*** `H100-80GB` or `A100-80GB` GPUs are recommended.
 
-### How we trained Cosmos-Predict1-7B-Video2World-Sample-AV-SingleToMultiView
+### How we trained Cosmos-Predict1-7B-Video2World-Sample-AV-Single2MultiView
 
-The Cosmos-Predict1-7B-Video2World-Sample-AV-SingleToMultiView model was post-trained with the following specifications:
+The Cosmos-Predict1-7B-Video2World-Sample-AV-Single2MultiView model was post-trained with the following specifications:
 
 #### Dataset Used:
 

@@ -22,7 +22,7 @@ Cosmos-Predict1 includes the following:
 - **[2025/05]** **Cosmos AV Single2MultiView** is available! Now you can create dynamic, multi-view clips from just one video. Try it out and tell us what you think!  
     - [Inference guide](examples/inference_diffusion_single2multiview.md)  
     - [PyTorch post-training](examples/post-training_diffusion_single2multiview.md)  
-    - [Hugging Face model](https://huggingface.co/nvidia/Cosmos-Predict1-7B-Video2World-Sample-AV-SingleToMultiView)  
+    - [Hugging Face model](https://huggingface.co/nvidia/Cosmos-Predict1-7B-Video2World-Sample-AV-Single2MultiView)  
 
 ## Example Model Behavior
 
