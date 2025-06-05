@@ -38,6 +38,8 @@ Cosmos_Predict1_Video2World_7B_Multiview: LazyDict = LazyDict(
                 160,
             ],
             net=L(MultiviewVideoExtendGeneralDIT)(
+                extra_per_block_abs_pos_emb=True,
+                extra_per_block_abs_pos_emb_type="sincos",
                 n_views=6,
                 view_condition_dim=6,
                 add_repeat_frame_embedding=True,
