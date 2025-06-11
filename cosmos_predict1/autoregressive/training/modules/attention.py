@@ -159,7 +159,7 @@ class GQA(nn.Module):
             self.k_norm = nn.Identity()
         self.use_qk_normalization = use_qk_normalization
         self.inference = inference
-        self.init_inference = inference # set_inference_flag() changes self.inference, but not this
+        self.init_inference = inference  # set_inference_flag() changes self.inference, but not this
 
         if fuse_qkv:
             # Register hook to load fused QKV weights
@@ -280,7 +280,7 @@ class GQA(nn.Module):
         output = output.view(bsz, seqlen, -1)
         output = self.wo(output)
 
-        if self.init_inference and self.tp_size > 1: # only nn.Linear requires this
+        if self.init_inference and self.tp_size > 1:  # only nn.Linear requires this
             output = funcol.all_reduce(output, "sum", group=parallel_state.get_tensor_model_parallel_group())
         return output
 
