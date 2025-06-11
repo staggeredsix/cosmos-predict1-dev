@@ -65,15 +65,16 @@ class ResnetBlock(nn.Module):
         in_channels: int,
         out_channels: int = None,
         dropout: float,
+        num_groups: int = 32,
         **kwargs,
     ):
         super().__init__()
         self.in_channels = in_channels
         out_channels = in_channels if out_channels is None else out_channels
 
-        self.norm1 = Normalize(in_channels)
+        self.norm1 = Normalize(in_channels, num_groups=num_groups)
         self.conv1 = nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=1, padding=1)
-        self.norm2 = Normalize(out_channels)
+        self.norm2 = Normalize(out_channels, num_groups=num_groups)
         self.dropout = nn.Dropout(dropout)
         self.conv2 = nn.Conv2d(out_channels, out_channels, kernel_size=3, stride=1, padding=1)
         self.nin_shortcut = (
@@ -99,10 +100,10 @@ class ResnetBlock(nn.Module):
 
 
 class AttnBlock(nn.Module):
-    def __init__(self, in_channels: int):
+    def __init__(self, in_channels: int, num_groups: int = 32):
         super().__init__()
 
-        self.norm = Normalize(in_channels)
+        self.norm = Normalize(in_channels, num_groups=num_groups)
         self.q = nn.Conv2d(in_channels, in_channels, kernel_size=1, stride=1, padding=0)
         self.k = nn.Conv2d(in_channels, in_channels, kernel_size=1, stride=1, padding=0)
         self.v = nn.Conv2d(in_channels, in_channels, kernel_size=1, stride=1, padding=0)
@@ -147,6 +148,7 @@ class Encoder(nn.Module):
         resolution: int,
         z_channels: int,
         spatial_compression: int,
+        num_groups: int = 32,
         **ignore_kwargs,
     ):
         super().__init__()
@@ -182,11 +184,12 @@ class Encoder(nn.Module):
                         in_channels=block_in,
                         out_channels=block_out,
                         dropout=dropout,
+                        num_groups=num_groups,
                     )
                 )
                 block_in = block_out
                 if curr_res in attn_resolutions:
-                    attn.append(AttnBlock(block_in))
+                    attn.append(AttnBlock(block_in, num_groups=num_groups))
             down = nn.Module()
             down.block = block
             down.attn = attn
@@ -197,12 +200,12 @@ class Encoder(nn.Module):
 
         # middle
         self.mid = nn.Module()
-        self.mid.block_1 = ResnetBlock(in_channels=block_in, out_channels=block_in, dropout=dropout)
-        self.mid.attn_1 = AttnBlock(block_in)
-        self.mid.block_2 = ResnetBlock(in_channels=block_in, out_channels=block_in, dropout=dropout)
+        self.mid.block_1 = ResnetBlock(in_channels=block_in, out_channels=block_in, dropout=dropout, num_groups=num_groups)
+        self.mid.attn_1 = AttnBlock(block_in, num_groups=num_groups)
+        self.mid.block_2 = ResnetBlock(in_channels=block_in, out_channels=block_in, dropout=dropout, num_groups=num_groups)
 
         # end
-        self.norm_out = Normalize(block_in)
+        self.norm_out = Normalize(block_in, num_groups=num_groups)
         self.conv_out = torch.nn.Conv2d(block_in, z_channels, kernel_size=3, stride=1, padding=1)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -244,6 +247,7 @@ class Decoder(nn.Module):
         resolution: int,
         z_channels: int,
         spatial_compression: int,
+        num_groups: int = 32,
         **ignore_kwargs,
     ):
         super().__init__()
@@ -269,9 +273,9 @@ class Decoder(nn.Module):
 
         # middle
         self.mid = nn.Module()
-        self.mid.block_1 = ResnetBlock(in_channels=block_in, out_channels=block_in, dropout=dropout)
-        self.mid.attn_1 = AttnBlock(block_in)
-        self.mid.block_2 = ResnetBlock(in_channels=block_in, out_channels=block_in, dropout=dropout)
+        self.mid.block_1 = ResnetBlock(in_channels=block_in, out_channels=block_in, dropout=dropout, num_groups=num_groups)
+        self.mid.attn_1 = AttnBlock(block_in, num_groups=num_groups)
+        self.mid.block_2 = ResnetBlock(in_channels=block_in, out_channels=block_in, dropout=dropout, num_groups=num_groups)
 
         # upsampling
         self.up = nn.ModuleList()
@@ -285,11 +289,12 @@ class Decoder(nn.Module):
                         in_channels=block_in,
                         out_channels=block_out,
                         dropout=dropout,
+                        num_groups=num_groups,
                     )
                 )
                 block_in = block_out
                 if curr_res in attn_resolutions:
-                    attn.append(AttnBlock(block_in))
+                    attn.append(AttnBlock(block_in, num_groups=num_groups))
             up = nn.Module()
             up.block = block
             up.attn = attn
@@ -299,7 +304,7 @@ class Decoder(nn.Module):
             self.up.insert(0, up)
 
         # end
-        self.norm_out = Normalize(block_in)
+        self.norm_out = Normalize(block_in, num_groups=num_groups)
         self.conv_out = torch.nn.Conv2d(block_in, out_ch, kernel_size=3, stride=1, padding=1)
 
     def forward(self, z: torch.Tensor) -> torch.Tensor:

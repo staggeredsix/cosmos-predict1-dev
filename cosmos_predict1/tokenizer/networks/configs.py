@@ -89,6 +89,7 @@ discrete_image = dict(
     # A factor over the z_channels, to get the total channels the encoder should output.
     # for discrete tokenization, often we directly use the vector, so z_factor=1.
     z_factor=1,
+    num_groups=32,
     # The quantizer of choice, VQ, LFQ, FSQ, or ResFSQ.
     quantizer=DiscreteQuantizer.FSQ.name,
     # The embedding dimension post-quantization, which is also the input channels of the decoder.
@@ -111,6 +112,7 @@ discrete_image_8x8_360p["spatial_compression"] = 8
 discrete_image_16x16_360p = dict(discrete_image)
 discrete_image_16x16_360p["patch_size"] = 2
 discrete_image_16x16_360p["spatial_compression"] = 16
+discrete_image_16x16_360p["num_groups"] = 1
 
 continuous_video = dict(
     attn_resolutions=[32],
