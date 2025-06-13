@@ -5,7 +5,9 @@
 <h1 align="center">
     
 > 🚨 **Update Notice**  
-> The latest version of our Cosmos World Foundation Model is now live!  
+>
+> The latest version of our Cosmos-Predict is now live!
+>
 > 👉 [**Cosmos-Predict2**](https://github.com/nvidia-cosmos/cosmos-predict2)
 
 We recommend all users migrate to the new version for improved performance, features, and continued support.
