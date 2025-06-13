@@ -46,7 +46,7 @@ Cosmos_Predict1_Text2World_7B_Multiview: LazyDict = LazyDict(
     )
 )
 
-Cosmos_Predict1_Text2World_7B_Multiview_post-trained: LazyDict = LazyDict(
+Cosmos_Predict1_Text2World_7B_Multiview_post_trained: LazyDict = LazyDict(
     dict(
         defaults=[
             "/experiment/Cosmos_Predict1_Text2World_7B",
@@ -56,7 +56,7 @@ Cosmos_Predict1_Text2World_7B_Multiview_post-trained: LazyDict = LazyDict(
         ],
         job=dict(
             group="Text2World",
-            name="Cosmos_Predict1_Text2World_7B_Multiview_post-trained",
+            name="Cosmos_Predict1_Text2World_7B_Multiview_post_trained",
         ),
         model=dict(
              net=dict(
@@ -82,6 +82,6 @@ Cosmos_Predict1_Text2World_7B_Multiview_post-trained: LazyDict = LazyDict(
 cs = ConfigStore.instance()
 for _item in [
     Cosmos_Predict1_Text2World_7B_Multiview,
-    Cosmos_Predict1_Text2World_7B_Multiview_post-trained,
+    Cosmos_Predict1_Text2World_7B_Multiview_post_trained,
 ]:
     cs.store(group="experiment", package="_global_", name=_item["job"]["name"], node=_item)
