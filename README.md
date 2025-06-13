@@ -2,6 +2,15 @@
     <img src="assets/nvidia-cosmos-header.png" alt="NVIDIA Cosmos Header">
 </p>
 
+<h1 align="center">
+    
+> 🚨 **Update Notice**  
+> The latest version of our Cosmos World Foundation Model is now live!  
+> 👉 [**Cosmos-Predict2**](https://github.com/nvidia-cosmos/cosmos-predict2)
+
+We recommend all users migrate to the new version for improved performance, features, and continued support.
+</h1>
+
 ### [Product Website](https://www.nvidia.com/en-us/ai/cosmos/) | [Hugging Face](https://huggingface.co/collections/nvidia/cosmos-predict1-67c9d1b97678dbf7669c89a7) | [Paper](https://arxiv.org/abs/2501.03575) | [Paper Website](https://research.nvidia.com/labs/dir/cosmos-predict1)
 
 Cosmos-Predict1 is a key branch of Cosmos World Foundation Models (WFMs) specialized for future state prediction, often referred to as world models. The tree main branches of Cosmos WFMs are [cosmos-predict](https://github.com/nvidia-cosmos/cosmos-predict1), [cosmos-transfer](https://github.com/nvidia-cosmos/cosmos-transfer1), and [cosmos-reason](https://github.com/nvidia-cosmos/cosmos-reason1). We visualize the architecture of Cosmos-Predict1 in the following figure.
