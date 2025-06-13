@@ -220,8 +220,7 @@ PROMPT_BACK_LEFT="The video is captured from a camera mounted on a car. The came
 
 PROMPT_BACK_RIGHT="The video is captured from a camera mounted on a car. The camera is facing the rear right side."
 ```
-
-Here is the command for Waymo data inference with five views.
+Here is the command for Waymo data inference with five views. See the config `Cosmos_Predict1_Text2World_7B_Multiview_post_trained` defined in `cosmos_predict1/diffusion/config/inference/cosmos-1-diffusion-text2world-multiview.py` and make sure it's consistent with training config.
 ```bash
 # Run the video generation command with a single gpu
 CUDA_HOME=$CONDA_PREFIX PYTHONPATH=$(pwd) python cosmos_predict1/diffusion/inference/text2world_multiview.py \
