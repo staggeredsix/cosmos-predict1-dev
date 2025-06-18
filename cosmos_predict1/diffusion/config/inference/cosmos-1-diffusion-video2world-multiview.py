@@ -49,11 +49,39 @@ Cosmos_Predict1_Video2World_7B_Multiview: LazyDict = LazyDict(
     )
 )
 
+Cosmos_Predict1_Video2World_7B_Multiview_post_trained: LazyDict = LazyDict(
+    dict(
+        defaults=[
+            "/experiment/Cosmos_Predict1_Text2World_7B_Multiview",
+            {"override /conditioner": "video_cond_frame_repeat"},
+            "_self_",
+        ],
+        job=dict(
+            group="Text2World",
+            name="Cosmos_Predict1_Video2World_7B_Multiview_post_trained",
+        ),
+        model=dict(
+            latent_shape=[
+                16,
+                16,
+                88,
+                160,
+            ],
+            net=L(MultiviewVideoExtendGeneralDIT)(
+                n_views=5,
+                view_condition_dim=3,
+                add_repeat_frame_embedding=False,
+            ),
+            conditioner=dict(video_cond_bool=dict()),
+        ),
+    )
+)
+
 
 cs = ConfigStore.instance()
-cs.store(
-    group="experiment",
-    package="_global_",
-    name=Cosmos_Predict1_Video2World_7B_Multiview["job"]["name"],
-    node=Cosmos_Predict1_Video2World_7B_Multiview,
-)
+for _item in [
+    Cosmos_Predict1_Video2World_7B_Multiview,
+    Cosmos_Predict1_Video2World_7B_Multiview_post_trained,
+]:
+    cs.store(group="experiment", package="_global_", name=_item["job"]["name"], node=_item)
+

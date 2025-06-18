@@ -186,6 +186,7 @@ PROMPT_BACK_LEFT="The video is captured from a camera mounted on a car. The came
 
 PROMPT_BACK_RIGHT="The video is captured from a camera mounted on a car. The camera is facing the rear right side."
 ```
+See the config `Cosmos_Predict1_Video2World_7B_ViewExtend_Multiview` defined in `cosmos_predict1/diffusion/config/inference/cosmos-1-diffusion-video2world-view_extend-multiview.py` and make sure it's consistent with training config.
 ```commandline
 CUDA_HOME=$CONDA_PREFIX PYTHONPATH=$(pwd) python cosmos_predict1/diffusion/inference/video2world_view_extend_multiview.py \
     --checkpoint_dir checkpoints \
