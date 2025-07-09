@@ -53,6 +53,9 @@ We provide a comphrehensive set of examples to illustrate how to perform inferen
 
 Please refer to [INSTALL.md](INSTALL.md) for general instructions on environment setup.
 
+You can also run `bash scripts/deploy_pipeline.sh` for a quick deployment that installs
+all requirements, authenticates with Hugging Face, and displays the available models.
+
 ### Inference with pre-trained Cosmos-Predict1 models
 * [Inference with diffusion-based Text2World models](/examples/inference_diffusion_text2world.md) **[with multi-GPU support]**
 * [Inference with diffusion-based Video2World models](/examples/inference_diffusion_video2world.md) **[with multi-GPU support]**
