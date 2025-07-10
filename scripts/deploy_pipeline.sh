@@ -23,12 +23,33 @@ read -s -p "Enter your Hugging Face API key: " HF_KEY
 echo
 export HUGGING_FACE_HUB_TOKEN="$HF_KEY"
 
+conda_env="cosmos-predict1"
+
+if ! command -v conda >/dev/null 2>&1; then
+    echo "conda is required but was not found. Please install conda and rerun." >&2
+    exit 1
+fi
+
+source "$(conda info --base)/etc/profile.d/conda.sh"
+
+if ! conda env list | awk '{print $1}' | grep -q "^${conda_env}$"; then
+    echo "Creating conda environment ${conda_env}..."
+    conda env create --file cosmos-predict1.yaml
+fi
+
+conda activate "$conda_env"
+
 echo "\nInstalling dependencies..."
-python3 -m pip install --upgrade pip
-python3 -m pip install -r requirements.txt
-python3 -m pip install --upgrade torch torchvision
-python3 -m pip install -e .
-python3 -m pip install gradio
+pip install --upgrade pip
+pip install -r requirements.txt
+pip install -e .
+pip install gradio
+ln -sf $CONDA_PREFIX/lib/python3.10/site-packages/nvidia/*/include/* $CONDA_PREFIX/include/
+ln -sf $CONDA_PREFIX/lib/python3.10/site-packages/nvidia/*/include/* $CONDA_PREFIX/include/python3.10
+pip install transformer-engine[pytorch]==1.12.0
+git clone https://github.com/NVIDIA/apex || true
+CUDA_HOME=$CONDA_PREFIX pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation \
+  --config-settings "--build-option=--cpp_ext" --config-settings "--build-option=--cuda_ext" ./apex
 
 # Login to Hugging Face after installing huggingface-hub
 huggingface-cli login --token "$HF_KEY"
