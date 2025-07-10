@@ -24,11 +24,14 @@ echo
 export HUGGING_FACE_HUB_TOKEN="$HF_KEY"
 
 conda_env="cosmos-predict1"
+
 miniconda_dir="$HOME/miniconda"
 
 echo "Installing Miniconda..."
 tmpd=$(mktemp -d)
+
 wget -qO "$tmpd/miniconda.sh" https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh
+
 bash "$tmpd/miniconda.sh" -b -p "$miniconda_dir"
 rm -rf "$tmpd"
 export PATH="$miniconda_dir/bin:$PATH"
@@ -90,6 +93,7 @@ pip install numpy cython
 python3 setup.py build_ext --inplace
 pip install .
 cd "$repo_root"
+
 
 # Login to Hugging Face after installing huggingface-hub
 huggingface-cli login --token "$HF_KEY"
