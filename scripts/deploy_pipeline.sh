@@ -24,6 +24,7 @@ echo
 export HUGGING_FACE_HUB_TOKEN="$HF_KEY"
 
 conda_env="cosmos-predict1"
+
 miniconda_dir="$HOME/miniconda"
 
 echo "Installing Miniconda..."
@@ -32,6 +33,7 @@ wget -qO "$tmpd/miniconda.sh" https://repo.anaconda.com/miniconda/Miniconda3-lat
 bash "$tmpd/miniconda.sh" -b -p "$miniconda_dir"
 rm -rf "$tmpd"
 export PATH="$miniconda_dir/bin:$PATH"
+
 
 source "$(conda info --base)/etc/profile.d/conda.sh"
 
@@ -53,6 +55,7 @@ pip install transformer-engine[pytorch]==1.12.0
 git clone https://github.com/NVIDIA/apex || true
 CUDA_HOME=$CONDA_PREFIX pip install -v --disable-pip-version-check --no-cache-dir --no-build-isolation \
   --config-settings "--build-option=--cpp_ext" --config-settings "--build-option=--cuda_ext" ./apex
+
 
 FFMPEG_VERSION="release/4.4"
 DECORD_REPO="https://github.com/dmlc/decord.git"
@@ -90,6 +93,7 @@ pip install numpy cython
 python3 setup.py build_ext --inplace
 pip install .
 cd "$repo_root"
+
 
 # Login to Hugging Face after installing huggingface-hub
 huggingface-cli login --token "$HF_KEY"
