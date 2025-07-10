@@ -55,6 +55,8 @@ Please refer to [INSTALL.md](INSTALL.md) for general instructions on environment
 
 You can also run `bash scripts/deploy_pipeline.sh` for a quick deployment that installs
 all requirements, authenticates with Hugging Face, and displays the available models.
+For an interactive experience, launch `bash scripts/deployment_webui.sh` which provides
+a Gradio interface to select and run the included use cases.
 
 ### Inference with pre-trained Cosmos-Predict1 models
 * [Inference with diffusion-based Text2World models](/examples/inference_diffusion_text2world.md) **[with multi-GPU support]**
