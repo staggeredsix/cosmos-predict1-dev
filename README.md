@@ -54,7 +54,9 @@ We provide a comphrehensive set of examples to illustrate how to perform inferen
 Please refer to [INSTALL.md](INSTALL.md) for general instructions on environment setup.
 
 You can also run `bash scripts/deploy_pipeline.sh` for a quick deployment that installs
-all requirements, authenticates with Hugging Face, and displays the available models.
+Miniconda for arm64, builds FFmpeg and Decord from source, installs all requirements in a
+`cosmos-predict1` conda environment, authenticates with Hugging Face, and displays the
+available models.
 For an interactive experience, launch `bash scripts/deployment_webui.sh` which provides
 a Gradio interface to select and run the included use cases.
 
