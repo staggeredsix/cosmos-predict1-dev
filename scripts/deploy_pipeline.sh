@@ -27,9 +27,11 @@ echo "\nInstalling dependencies..."
 python3 -m pip install --upgrade pip
 python3 -m pip install -r requirements.txt
 python3 -m pip install --upgrade torch torchvision
+python3 -m pip install -e .
+python3 -m pip install gradio
 
 # Login to Hugging Face after installing huggingface-hub
-huggingface-cli login --token "$HF_KEY" --non-interactive
+huggingface-cli login --token "$HF_KEY"
 
 echo "\nAvailable Cosmos-Predict1 models:\n"
 grep "\* \[Cosmos" README.md | sed 's/^* //'
